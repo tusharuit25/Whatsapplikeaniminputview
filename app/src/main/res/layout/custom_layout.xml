@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp">
+
+
+    <Button
+        android:id="@+id/permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Request Audio/Data Permision"
+        android:visibility="visible" />
+
+    <!--  <include layout="@layout/chat_input_bar"/>-->
+
+    <com.twigsoftwares.com.whatsapplikeaniminputview.ChatInputBar
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.twigsoftwares.com.whatsapplikeaniminputview.ChatInputBar>
+
+
+</RelativeLayout>

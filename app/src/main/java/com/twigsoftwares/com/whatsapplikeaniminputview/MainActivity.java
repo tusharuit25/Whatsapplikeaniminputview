@@ -71,10 +71,7 @@ public class MainActivity extends AppCompatActivity {
     Button requestPermission;
 
 
-    private static final int PERMISSION_REQUEST_CODE = 1;
 
-    public static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 123;
-    private boolean mKeyboardStatus;
     private EmojIconActions emojIcon;
 
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //emoji images
-        emojiButton = (ImageView) findViewById(R.id.emoji_btn);
+        emojiButton = (ImageView) findViewById(R.id.emojibutton);
         final View rootView = findViewById(R.id.root_view);
 
         aaebutton = (AllAngleExpandableButton) findViewById(R.id.button_expandable);
@@ -246,104 +243,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        /*// Give the topmost view of your activity layout hierarchy. This will be used to measure soft keyboard height
-        final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
-
-        //Will automatically set size according to the soft keyboard size
-        popup.setSizeForSoftKeyboard();
-
-        //If the emoji popup is dismissed, change emojiButton to smiley icon
-        popup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                changeEmojiKeyboardIcon(emojiButton, R.drawable.smiley);
-            }
-        });
-
-        //If the text keyboard closes, also dismiss the emoji popup
-        popup.setOnSoftKeyboardOpenCloseListener(new EmojiconsPopup.OnSoftKeyboardOpenCloseListener() {
-
-            @Override
-            public void onKeyboardOpen(int keyBoardHeight) {
-
-            }
-
-            @Override
-            public void onKeyboardClose() {
-                if (popup.isShowing())
-                    popup.dismiss();
-            }
-        });
-        //On emoji clicked, add it to edittext
-        popup.setOnEmojiconClickedListener(new EmojiconGridView.OnEmojiconClickedListener() {
-
-            @Override
-            public void onEmojiconClicked(Emojicon emojicon) {
-                if (messageinputView == null || emojicon == null) {
-                    return;
-                }
-
-                int start = messageinputView.getSelectionStart();
-                int end = messageinputView.getSelectionEnd();
-                if (start < 0) {
-                    messageinputView.append(emojicon.getEmoji());
-                } else {
-                    messageinputView.getText().replace(Math.min(start, end),
-                            Math.max(start, end), emojicon.getEmoji(), 0,
-                            emojicon.getEmoji().length());
-                }
-            }
-        });*/
-
-        //On backspace clicked, emulate the KEYCODE_DEL key event
-       /* popup.setOnEmojiconBackspaceClickedListener(new EmojiconsPopup.OnEmojiconBackspaceClickedListener() {
-
-            @Override
-            public void onEmojiconBackspaceClicked(View v) {
-                KeyEvent event = new KeyEvent(
-                        0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
-                messageinputView.dispatchKeyEvent(event);
-            }
-        });*/
-
-        // To toggle between text keyboard and emoji keyboard keyboard(Popup)
-       /* emojiButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                //If popup is not showing => emoji keyboard is not visible, we need to show it
-                if (!popup.isShowing()) {
-
-                    //If keyboard is visible, simply show the emoji popup
-                    if (popup.isKeyBoardOpen()) {
-                        popup.showAtBottom();
-                        changeEmojiKeyboardIcon(emojiButton, R.drawable.keyboardnew);
-                    }
-
-                    //else, open the text keyboard first and immediately after that show the emoji popup
-                    else {
-                        messageinputView.setFocusableInTouchMode(true);
-                        messageinputView.requestFocus();
-                        popup.showAtBottomPending();
-                        final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(messageinputView, InputMethodManager.SHOW_IMPLICIT);
-                        changeEmojiKeyboardIcon(emojiButton, R.drawable.keyboardnew);
-                    }
-                }
-
-                //If popup is showing, simply dismiss it to show the undelying text keyboard
-                else {
-                    popup.dismiss();
-                }
-            }
-        });*/
-
     }
 
     private void changeEmojiKeyboardIcon(ImageView iconToBeChanged, int drawableResourceId) {
@@ -351,21 +250,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   /* public void dismissKeyboard() {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(messageinputView.getWindowToken(), 0);
-        mKeyboardStatus = false;
-    }*/
 
-    public void showKeyboard() {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-        mKeyboardStatus = true;
-    }
-
-    private boolean isKeyboardActive() {
-        return mKeyboardStatus;
-    }
 
     private void initRecordFunction() {
         //IMPORTANT
