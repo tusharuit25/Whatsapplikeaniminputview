@@ -1,57 +1,33 @@
 package com.twigsoftwares.com.whatsapplikeaniminputview;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.devlomi.record_view.OnRecordClickListener;
 import com.devlomi.record_view.OnRecordListener;
 import com.devlomi.record_view.RecordButton;
 import com.devlomi.record_view.RecordView;
 import com.fangxu.allangleexpandablebutton.AllAngleExpandableButton;
 import com.fangxu.allangleexpandablebutton.ButtonData;
 import com.fangxu.allangleexpandablebutton.ButtonEventListener;
-import com.twigsoftwares.com.whatsapplikeaniminputview.emoji.Emojicon;
-import com.twigsoftwares.com.whatsapplikeaniminputview.emoji.EmojiconEditText;
-import com.twigsoftwares.com.whatsapplikeaniminputview.emoji.EmojiconGridView;
-import com.twigsoftwares.com.whatsapplikeaniminputview.emoji.EmojiconsPopup;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -62,13 +38,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static android.Manifest.permission.RECORD_AUDIO;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 
 public class MainActivity extends AppCompatActivity {
     RecordView recordView;
     RecordButton recordButton;
-    EmojiconEditText messageinputView;
+    hani.momanii.supernova_emoji_library.Helper.EmojiconEditText messageinputView;
     ImageButton sendButton;
     AllAngleExpandableButton aaebutton;
     RelativeLayout middleLayout;
@@ -100,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 123;
     private boolean mKeyboardStatus;
-
+    private EmojIconActions emojIcon;
 
 
     @Override
@@ -116,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         recordView = (RecordView) findViewById(R.id.record_view);
         recordButton = (RecordButton) findViewById(R.id.record_button);
         sendButton = (ImageButton) findViewById(R.id.sendButton);
-        messageinputView = (EmojiconEditText) findViewById(R.id.messageinput);
+        messageinputView = (hani.momanii.supernova_emoji_library.Helper.EmojiconEditText) findViewById(R.id.messageinput);
         requestPermission = (Button) findViewById(R.id.permission);
         middleLayout = (RelativeLayout) findViewById(R.id.middlelayout);
 
@@ -236,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 //the value is from 1 to buttonCount - 1(buttonCount if aebIsSelectionMode=true)
                 //dismissKeyboard();
                 if (index >= 1) {
-                    dismissKeyboard();
+                   // dismissKeyboard();
                 }
 
             }
@@ -257,8 +232,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         // emijo functionality
+        emojIcon=new EmojIconActions(this,rootView,messageinputView,emojiButton);
+        emojIcon.ShowEmojIcon();
+        emojIcon.setKeyboardListener(new EmojIconActions.KeyboardListener() {
+            @Override
+            public void onKeyboardOpen() {
+                Log.e("Keyboard","open");
+            }
 
-        // Give the topmost view of your activity layout hierarchy. This will be used to measure soft keyboard height
+            @Override
+            public void onKeyboardClose() {
+                Log.e("Keyboard","close");
+            }
+        });
+
+
+
+
+
+        /*// Give the topmost view of your activity layout hierarchy. This will be used to measure soft keyboard height
         final EmojiconsPopup popup = new EmojiconsPopup(rootView, this);
 
         //Will automatically set size according to the soft keyboard size
@@ -287,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
                     popup.dismiss();
             }
         });
-
         //On emoji clicked, add it to edittext
         popup.setOnEmojiconClickedListener(new EmojiconGridView.OnEmojiconClickedListener() {
 
@@ -307,10 +298,10 @@ public class MainActivity extends AppCompatActivity {
                             emojicon.getEmoji().length());
                 }
             }
-        });
+        });*/
 
         //On backspace clicked, emulate the KEYCODE_DEL key event
-        popup.setOnEmojiconBackspaceClickedListener(new EmojiconsPopup.OnEmojiconBackspaceClickedListener() {
+       /* popup.setOnEmojiconBackspaceClickedListener(new EmojiconsPopup.OnEmojiconBackspaceClickedListener() {
 
             @Override
             public void onEmojiconBackspaceClicked(View v) {
@@ -318,10 +309,10 @@ public class MainActivity extends AppCompatActivity {
                         0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
                 messageinputView.dispatchKeyEvent(event);
             }
-        });
+        });*/
 
         // To toggle between text keyboard and emoji keyboard keyboard(Popup)
-        emojiButton.setOnClickListener(new View.OnClickListener() {
+       /* emojiButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -351,19 +342,20 @@ public class MainActivity extends AppCompatActivity {
                     popup.dismiss();
                 }
             }
-        });
+        });*/
 
     }
+
     private void changeEmojiKeyboardIcon(ImageView iconToBeChanged, int drawableResourceId) {
         iconToBeChanged.setImageResource(drawableResourceId);
     }
 
 
-    public void dismissKeyboard() {
+   /* public void dismissKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(messageinputView.getWindowToken(), 0);
         mKeyboardStatus = false;
-    }
+    }*/
 
     public void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -496,8 +488,7 @@ public class MainActivity extends AppCompatActivity {
             if (!saveFile && mOutputFile != null) {
                 mOutputFile.delete();
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
 

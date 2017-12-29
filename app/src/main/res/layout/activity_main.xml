@@ -71,7 +71,30 @@
             android:layout_toRightOf="@+id/leftlayout"
             android:layout_toStartOf="@+id/record_button">
 
-            <com.twigsoftwares.com.whatsapplikeaniminputview.emoji.EmojiconEditText
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+                android:id="@+id/messageinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:layout_toStartOf="@+id/emoji_btn"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/backgound_link_preview"
+                android:drawingCacheQuality="high"
+                android:focusedByDefault="false"
+                android:inputType="textMultiLine|textAutoCorrect|textAutoComplete|textMultiLine|textCapSentences"
+                android:maxLines="6"
+                android:padding="10dp"
+                android:scrollbarStyle="insideOverlay"
+                android:imeOptions="actionSend"
+                emojicon:emojiconSize="28sp"
+                android:scrollbars="vertical"  />
+
+
+
+           <!-- <com.twigsoftwares.com.whatsapplikeaniminputview.emoji.EmojiconEditText
                 android:id="@+id/messageinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +111,7 @@
                 android:padding="10dp"
                 android:scrollbarStyle="insideOverlay"
                 emojicon:emojiconSize="28sp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical" />-->
 
             <ImageView
                 android:id="@+id/emoji_btn"

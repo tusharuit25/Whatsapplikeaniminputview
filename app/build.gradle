@@ -38,6 +38,7 @@ dependencies {
     //compile 'com.kevalpatel2106:emoticongifkeyboard:1.1'
     //compile 'br.com.instachat:emoji-library:1.0.10'
     //compile 'com.github.hani-momanii:SuperNova-Emoji:1.1'
+    compile 'com.github.hani-momanii:SuperNova-Emoji:1.1'
     compile 'com.vistrav:ask:2.5'
     testCompile 'junit:junit:4.12'
 }
