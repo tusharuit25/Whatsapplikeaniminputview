@@ -25,20 +25,23 @@ android {
 
     }
 }
+ext {
+    supportVersion = '25.3.1'
+    flexboxVersion = '0.2.5'
+    picassoVersion = '2.5.2'
+    circleImageViewVersion = '2.1.0'
+    shapeImageViewVersion = '0.9.3'
+    circleindicatorVersion = '1.2.2@aar'
 
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //compile project(path: ':emojilib')
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.github.uin3566:AllAngleExpandableButton:v1.2.0'
     compile 'com.devlomi.record-view:record-view:1.1beta'
-    //compile 'com.kevalpatel2106:emoticongifkeyboard:1.1'
-    //compile 'br.com.instachat:emoji-library:1.0.10'
-    //compile 'com.github.hani-momanii:SuperNova-Emoji:1.1'
     compile 'com.github.hani-momanii:SuperNova-Emoji:1.1'
-    compile 'com.vistrav:ask:2.5'
     testCompile 'junit:junit:4.12'
 }
